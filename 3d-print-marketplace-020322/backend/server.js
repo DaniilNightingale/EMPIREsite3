@@ -125,16 +125,19 @@ const portfolioUpload = multer({
   }
 });
 
-// PostgreSQL 数据库连接配置
+// PostgreSQL 数据库连接配置 - Neon DB
 const sequelize = new Sequelize(
-  process.env.DB_NAME || 'marketplace',
-  process.env.DB_USER || 'postgres',
-  process.env.DB_PASSWORD || 'password',
+  process.env.DATABASE_URL || process.env.POSTGRES_URL || 'postgresql://neondb_owner:npg_uOPhmj5tUGg1@ep-twilight-smoke-ad2k16yz-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require',
   {
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5432,
     dialect: 'postgres',
-    logging: false,
+    protocol: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    },
+    logging: console.log, // Для отладки
     pool: {
       max: 5,
       min: 0,
