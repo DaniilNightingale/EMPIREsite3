@@ -437,22 +437,19 @@ async function initDatabase() {
   try {
     await sequelize.authenticate();
     logger.info('数据库连接成功');
+    console.log('✅ Database connected successfully to Neon');
     
-    await sequelize.sync({ alter: false });
+    await sequelize.sync({ alter: true }); // Используйте alter: true для автоматического создания таблиц
     logger.info('数据库表结构检查完成');
+    console.log('✅ Database tables synced');
 
-    const settingsExists = await Settings.findOne();
-    if (!settingsExists) {
-      await Settings.create({
-        payment_info: 'Реквизиты для оплаты:\nБанковская карта: 1234 5678 9012 3456\nЯндекс.Деньги: 410011234567890\nQIWI: +79001234567',
-        price_coefficient: 5.25,
-        discount_rules: '[]',
-        show_discount_on_products: false
-      });
-      logger.info('默认系统设置创建完成');
-    }
+    // Проверка существующих таблиц
+    const tables = await sequelize.showAllSchemas();
+    console.log('📊 Available tables:', tables);
+
   } catch (error) {
     logger.error('数据库初始化错误:', error.message);
+    console.error('❌ Database initialization error:', error);
   }
 }
 
