@@ -1,6 +1,6 @@
         DB_PASSWORD=H5NHRFE3Uy_T8E3H
 DB_NAME=densolo043
 DB_USER=densolo043
-DB_HOST=pg4.sweb.ru
+DB_HOST=77.222.41.61
 DB_PORT=5433
         EOF
