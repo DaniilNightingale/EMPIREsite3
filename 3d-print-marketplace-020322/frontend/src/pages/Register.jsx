@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { API_BASE_URL } from './config';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -63,7 +64,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/register', {
+      const response = await fetch('${API_BASE_URL}/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
